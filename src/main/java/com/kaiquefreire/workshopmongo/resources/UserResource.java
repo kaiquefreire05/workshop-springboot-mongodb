@@ -6,12 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.kaiquefreire.workshopmongo.domain.User;
@@ -49,10 +44,17 @@ public class UserResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@GetMapping("/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> update(@RequestBody UserDTO objDto, @PathVariable String id) {
+		User obj = service.fromDTO(objDto); // instanciando obj através do obj da requisição 
+		obj.setId(id); // fazendo a troca do id
+		obj = service.update(obj); // chamand o método update
+		return ResponseEntity.noContent().build();
+	}
 }
