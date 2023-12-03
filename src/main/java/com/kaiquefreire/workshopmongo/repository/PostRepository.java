@@ -3,10 +3,10 @@ package com.kaiquefreire.workshopmongo.repository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.kaiquefreire.workshopmongo.domain.User;
+import com.kaiquefreire.workshopmongo.domain.Post;
 
 @Repository
-public interface UserRepository extends MongoRepository<User, String>{ // criando repositório MongoDB d o objeto User
+public interface PostRepository extends MongoRepository<Post, String>{ // criando repositório MongoDB do objeto Post
 	
 	
 }
