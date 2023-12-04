@@ -1,9 +1,12 @@
 package com.kaiquefreire.workshopmongo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -14,6 +17,9 @@ public class User implements Serializable {
 	private String id;
 	private String email;
 	private String name;
+	
+	@DBRef(lazy=true) // os post só vão ser acessados se eu quiser acessalos
+	private List<Post> posts = new ArrayList<>();
 	
 	// construtores
 	
@@ -52,6 +58,13 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
 	
 	// hashcode e equals
 	
@@ -72,6 +85,5 @@ public class User implements Serializable {
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-	
 	
 }
